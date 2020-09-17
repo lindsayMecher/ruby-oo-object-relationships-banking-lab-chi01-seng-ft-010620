@@ -3,16 +3,18 @@ require_relative 'bank_account'
 
 class Transfer
   attr_accessor :sender, :receiver, :amount, :status, :executed
+
   def initialize(sender, receiver, amount)
     @sender = sender
     @receiver = receiver
     @amount = amount
     @status = 'pending'
-    
   end
+
   def valid?
     self.sender.valid? && self.receiver.valid?
   end
+
   def execute_transaction
     if self.sender.balance < self.amount || !self.valid?
       self.status = "rejected"
@@ -26,6 +28,7 @@ class Transfer
       end
     end
   end
+
   def reverse_transfer
       if self.executed
         self.sender.balance += self.amount
@@ -33,6 +36,7 @@ class Transfer
         self.status = "reversed"
      end
   end
+  
 end
 
 
